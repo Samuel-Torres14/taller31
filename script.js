@@ -77,22 +77,70 @@ function cohenSutherland(x1,y1,x2,y2){
 
     while(true){
 
-        // Aceptación trivial
         if((code1 | code2) === 0){
 
             accept = true;
             break;
         }
-
-        // Rechazo trivial
         else if((code1 & code2) !== 0){
 
             break;
         }
         else{
-            break;
+
+            let codeOut;
+            let x,y;
+
+            if(code1 !== 0)
+                codeOut = code1;
+            else
+                codeOut = code2;
+
+            if(codeOut & TOP){
+
+                x = x1 + (x2 - x1) * (yMax - y1) / (y2 - y1);
+                y = yMax;
+            }
+
+            else if(codeOut & BOTTOM){
+
+                x = x1 + (x2 - x1) * (yMin - y1) / (y2 - y1);
+                y = yMin;
+            }
+
+            else if(codeOut & RIGHT){
+
+                y = y1 + (y2 - y1) * (xMax - x1) / (x2 - x1);
+                x = xMax;
+            }
+
+            else if(codeOut & LEFT){
+
+                y = y1 + (y2 - y1) * (xMin - x1) / (x2 - x1);
+                x = xMin;
+            }
+
+            if(codeOut === code1){
+
+                x1 = x;
+                y1 = y;
+                code1 = computeCode(x1,y1);
+            }
+
+            else{
+
+                x2 = x;
+                y2 = y;
+                code2 = computeCode(x2,y2);
+            }
         }
     }
 
-    return accept;
+    return {
+        accept,
+        x1,
+        y1,
+        x2,
+        y2
+    };
 }
