@@ -67,3 +67,32 @@ function computeCode(x,y){
 
     return code;
 }
+
+function cohenSutherland(x1,y1,x2,y2){
+
+    let code1 = computeCode(x1,y1);
+    let code2 = computeCode(x2,y2);
+
+    let accept = false;
+
+    while(true){
+
+        // Aceptación trivial
+        if((code1 | code2) === 0){
+
+            accept = true;
+            break;
+        }
+
+        // Rechazo trivial
+        else if((code1 & code2) !== 0){
+
+            break;
+        }
+        else{
+            break;
+        }
+    }
+
+    return accept;
+}
