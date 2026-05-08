@@ -39,6 +39,31 @@ function drawLine(x1,y1,x2,y2,color="black",grosor=2){
     ctx.stroke();
 }
 
-// Línea de prueba
+// Linea de prueba
 
 drawLine(50,50,700,400,"gray",2);
+
+const INSIDE = 0;
+const LEFT = 1;
+const RIGHT = 2;
+const BOTTOM = 4;
+const TOP = 8;
+
+function computeCode(x,y){
+
+    let code = INSIDE;
+
+    if(x < xMin)
+        code |= LEFT;
+
+    else if(x > xMax)
+        code |= RIGHT;
+
+    if(y < yMin)
+        code |= BOTTOM;
+
+    else if(y > yMax)
+        code |= TOP;
+
+    return code;
+}
