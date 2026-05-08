@@ -214,9 +214,11 @@ function renderizar(){
             3
         );
     }
-}
 
-renderizar();
+    // TEXTO DEL CASO ACTUAL
+    document.getElementById("casoTexto").innerText =
+        escena.nombre;
+}
 
 function siguienteEscena(){
 
