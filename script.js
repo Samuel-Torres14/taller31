@@ -237,3 +237,13 @@ function anteriorEscena(){
 
     renderizar();
 }
+
+function actualizarVentana(){
+
+    xMin = parseInt(document.getElementById("xmin").value);
+    yMin = parseInt(document.getElementById("ymin").value);
+    xMax = parseInt(document.getElementById("xmax").value);
+    yMax = parseInt(document.getElementById("ymax").value);
+
+    renderizar();
+}
