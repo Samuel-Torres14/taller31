@@ -244,6 +244,30 @@ function renderizar(){
     // TEXTO DEL CASO ACTUAL
     document.getElementById("casoTexto").innerText =
         escena.nombre;
+
+        // Mostrar información de línea y recorte
+        document.getElementById("infoLinea").innerHTML = `
+
+        <h3>Línea:</h3>
+
+        <p>
+        p1: (${Math.round(l.x1)}, ${Math.round(l.y1)})
+        </p>
+
+        <p>
+        p2: (${Math.round(l.x2)}, ${Math.round(l.y2)})
+        </p>
+
+        <h3>Recorte:</h3>
+
+        <p>
+        pc1: (${Math.round(recorte.x1)}, ${Math.round(recorte.y1)})
+        </p>
+
+        <p>
+        pc2: (${Math.round(recorte.x2)}, ${Math.round(recorte.y2)})
+        </p>
+`;
 }
 //botones para las escenas
 function siguienteEscena(){
