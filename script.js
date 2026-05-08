@@ -1,13 +1,16 @@
+//obtiene el canvas y el contexto a dibujar
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 console.log("Canvas conectado correctamente");
 
+//limites de la ventana de recorte
 let xMin = 150;
 let yMin = 100;
 let xMax = 550;
 let yMax = 350;
 
+//dibujar ventana de recorte
 function drawViewport(){
 
     ctx.strokeStyle = "blue";
@@ -24,6 +27,7 @@ ctx.clearRect(0,0,canvas.width,canvas.height);
 
 drawViewport();
 
+//dibuja la linea
 function drawLine(x1,y1,x2,y2,color="black",grosor=2){
 
     ctx.beginPath();
@@ -43,12 +47,14 @@ function drawLine(x1,y1,x2,y2,color="black",grosor=2){
 
 drawLine(50,50,700,400,"gray",2);
 
+//punntos en la region
 const INSIDE = 0;
 const LEFT = 1;
 const RIGHT = 2;
 const BOTTOM = 4;
 const TOP = 8;
 
+//calcula la posicion del punto
 function computeCode(x,y){
 
     let code = INSIDE;
@@ -68,8 +74,10 @@ function computeCode(x,y){
     return code;
 }
 
+//algoritmo de recorte
 function cohenSutherland(x1,y1,x2,y2){
 
+    // codigos de los extremos
     let code1 = computeCode(x1,y1);
     let code2 = computeCode(x2,y2);
 
@@ -77,49 +85,60 @@ function cohenSutherland(x1,y1,x2,y2){
 
     while(true){
 
+        //linea completamente adentro
         if((code1 | code2) === 0){
 
             accept = true;
             break;
         }
+
+        //linea completamente fuera
         else if((code1 & code2) !== 0){
 
             break;
         }
+
+        //linea parcialmente adentro
         else{
 
             let codeOut;
             let x,y;
 
+            //selecciona punto externo
             if(code1 !== 0)
                 codeOut = code1;
             else
                 codeOut = code2;
 
+            //interseccion superior
             if(codeOut & TOP){
 
                 x = x1 + (x2 - x1) * (yMax - y1) / (y2 - y1);
                 y = yMax;
             }
 
+            //interseccion inferior
             else if(codeOut & BOTTOM){
 
                 x = x1 + (x2 - x1) * (yMin - y1) / (y2 - y1);
                 y = yMin;
             }
 
+            //interseccion derecha
             else if(codeOut & RIGHT){
 
                 y = y1 + (y2 - y1) * (xMax - x1) / (x2 - x1);
                 x = xMax;
             }
 
+            //interseccion izquierda
             else if(codeOut & LEFT){
 
                 y = y1 + (y2 - y1) * (xMin - x1) / (x2 - x1);
                 x = xMin;
             }
 
+            //actualizar el primer punto
             if(codeOut === code1){
 
                 x1 = x;
@@ -127,6 +146,7 @@ function cohenSutherland(x1,y1,x2,y2){
                 code1 = computeCode(x1,y1);
             }
 
+            //actualizar el segundo punto
             else{
 
                 x2 = x;
@@ -136,6 +156,7 @@ function cohenSutherland(x1,y1,x2,y2){
         }
     }
 
+    //retorna resultado
     return {
         accept,
         x1,
@@ -145,8 +166,10 @@ function cohenSutherland(x1,y1,x2,y2){
     };
 }
 
+
 let escenaActual = 0;
 
+//casos de prueba
 const escenas = [
 
     {
@@ -175,8 +198,10 @@ const escenas = [
     }
 ];
 
+//dibuja la escena
 function renderizar(){
 
+    //limpia el canvas
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
     drawViewport();
@@ -195,6 +220,7 @@ function renderizar(){
         1
     );
 
+    //aplica el recorte
     const recorte = cohenSutherland(
         l.x1,
         l.y1,
@@ -219,7 +245,7 @@ function renderizar(){
     document.getElementById("casoTexto").innerText =
         escena.nombre;
 }
-
+//botones para las escenas
 function siguienteEscena(){
 
     escenaActual++;
@@ -240,6 +266,7 @@ function anteriorEscena(){
     renderizar();
 }
 
+//cambia la ventana de recorte
 function actualizarVentana(){
 
     xMin = parseInt(document.getElementById("xmin").value);
@@ -247,5 +274,6 @@ function actualizarVentana(){
     xMax = parseInt(document.getElementById("xmax").value);
     yMax = parseInt(document.getElementById("ymax").value);
 
+    //dibuja la primera escena
     renderizar();
 }
