@@ -174,3 +174,46 @@ const escenas = [
         linea:{x1:50,y1:50,x2:700,y2:450}
     }
 ];
+
+function renderizar(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    drawViewport();
+
+    const escena = escenas[escenaActual];
+
+    const l = escena.linea;
+
+    // Línea original
+    drawLine(
+        l.x1,
+        l.y1,
+        l.x2,
+        l.y2,
+        "gray",
+        1
+    );
+
+    const recorte = cohenSutherland(
+        l.x1,
+        l.y1,
+        l.x2,
+        l.y2
+    );
+
+    // Línea recortada
+    if(recorte.accept){
+
+        drawLine(
+            recorte.x1,
+            recorte.y1,
+            recorte.x2,
+            recorte.y2,
+            "red",
+            3
+        );
+    }
+}
+
+renderizar();
