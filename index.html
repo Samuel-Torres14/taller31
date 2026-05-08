@@ -3,10 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title>Cohen Sutherland</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background:#e9e9e9;
+            text-align:center;
+        }
+
+        canvas{
+            background:white;
+            border:1px solid black;
+        }
+
+        .controls{
+            margin-top:10px;
+        }
+
+        input{
+            width:60px;
+            margin:5px;
+        }
+
+        button{
+            padding:8px 15px;
+            margin:5px;
+        }
+    </style>
 </head>
 <body>
 
+    <h2>Algoritmo de Cohen-Sutherland</h2>
+
     <canvas id="canvas" width="800" height="500"></canvas>
+
+    <div class="controls">
+
+        xMin:
+        <input type="number" id="xmin" value="150">
+
+        yMin:
+        <input type="number" id="ymin" value="100">
+
+        xMax:
+        <input type="number" id="xmax" value="550">
+
+        yMax:
+        <input type="number" id="ymax" value="350">
+
+        <br>
+
+        <button>Actualizar</button>
+        <button>Anterior</button>
+        <button>Siguiente</button>
+
+    </div>
 
     <script src="script.js"></script>
 
