@@ -144,3 +144,33 @@ function cohenSutherland(x1,y1,x2,y2){
         y2
     };
 }
+
+let escenaActual = 0;
+
+const escenas = [
+
+    {
+        nombre:"Caso 1: Línea dentro",
+        linea:{x1:200,y1:150,x2:450,y2:300}
+    },
+
+    {
+        nombre:"Caso 2: Línea fuera",
+        linea:{x1:50,y1:50,x2:100,y2:80}
+    },
+
+    {
+        nombre:"Caso 3: Cruce izquierda",
+        linea:{x1:50,y1:250,x2:300,y2:250}
+    },
+
+    {
+        nombre:"Caso 4: Cruce derecha",
+        linea:{x1:450,y1:200,x2:700,y2:200}
+    },
+
+    {
+        nombre:"Caso 5: Línea atravesando viewport",
+        linea:{x1:50,y1:50,x2:700,y2:450}
+    }
+];
